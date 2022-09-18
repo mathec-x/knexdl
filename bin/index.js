@@ -3,10 +3,9 @@
 const knex = require('knex')
 const pt = require('path')
 const { Command } = require('commander');
-const { ucFirst } = require('../lib/utils/ucFirst');
 const { envParser } = require('../lib/utils/envParser');
 const { parseNamespace } = require('../lib/utils/parseNamespace');
-const { print, COLORS: C} = require('../lib/utils/print');
+const { print } = require('../lib/utils/print');
 const { KnexDl } = require('../')
 
 const program = new Command();
@@ -63,44 +62,44 @@ program
 /**
  * @todo autogenerate models
  */
-program
-  .command('generate')
-  .description('generate models.')
-  .argument('<env>', 'env name containing connection string')
-  .argument('<model>', 'model name')
-  .option('-e, --env <char>', 'path to .env file', '.env')
-  .option('-o, --output <char>', 'output models', 'src/')
-  .action(async (env, model, options) => {
-    try {
-      const output_path = pt.join(options.output.startsWith('/') ? options.output : process.cwd(), model)
-      const enviroments_path = options.env.startsWith('/') ? options.env : pt.join(process.cwd(), options.env)
-      const enviroment_objct = envParser(enviroments_path)
+// program
+//   .command('generate')
+//   .description('generate models.')
+//   .argument('<env>', 'env name containing connection string')
+//   .argument('<model>', 'model name')
+//   .option('-e, --env <char>', 'path to .env file', '.env')
+//   .option('-o, --output <char>', 'output models', 'src/')
+//   .action(async (env, model, options) => {
+//     try {
+//       const output_path = pt.join(options.output.startsWith('/') ? options.output : process.cwd(), model)
+//       const enviroments_path = options.env.startsWith('/') ? options.env : pt.join(process.cwd(), options.env)
+//       const enviroment_objct = envParser(enviroments_path)
 
-      if (!enviroment_objct[env]) {
-        throw Error(`Env: ${env} not defined`)
-      }
+//       if (!enviroment_objct[env]) {
+//         throw Error(`Env: ${env} not defined`)
+//       }
 
-      const log = new print.dir('logs/teste')
-      log.add({t: new Date()})
-      log.add({t: new Date()})
-      log.close()
-      await print.delay(10000)
-      log.rm()
+//       const log = new print.dir('logs/teste')
+//       log.add({t: new Date()})
+//       log.add({t: new Date()})
+//       log.close()
+//       await print.delay(10000)
+//       log.rm()
 
-      const enviroment_conn = enviroment_objct[env]
-      print.ln()
-      print.done(`output: ${output_path.replace(process.cwd(), '.')}`)
-      print.info(`loaded enviroment '${env}' from: ${enviroments_path}`)
+//       const enviroment_conn = enviroment_objct[env]
+//       print.ln()
+//       print.done(`output: ${output_path.replace(process.cwd(), '.')}`)
+//       print.info(`loaded enviroment '${env}' from: ${enviroments_path}`)
 
-      print.info(`connection string: ${enviroment_conn.replace(/:.*@/, '://****:************************@')}`)
-      print.ln()
+//       print.info(`connection string: ${enviroment_conn.replace(/:.*@/, '://****:************************@')}`)
+//       print.ln()
 
-    } catch (error) {
-      print.ln()
-      print.red('Error: ', error.message)
-    }
+//     } catch (error) {
+//       print.ln()
+//       print.red('Error: ', error.message)
+//     }
 
-    print.ln()
-  });
+//     print.ln()
+//   });
 
 program.parse()

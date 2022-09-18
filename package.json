@@ -1,6 +1,6 @@
 {
   "name": "knexdl",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "bin": "./bin/index.js",
   "description": "library for a complete solution using knex and database first",
   "main": "./lib/index.js",
