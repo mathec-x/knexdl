@@ -1,6 +1,6 @@
 {
   "name": "knexdl",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "bin": "./bin/index.js",
   "description": "library for a complete solution using knex and database first",
   "main": "./lib/index.js",
@@ -25,14 +25,6 @@
   },
   "peerDependencies": {
     "knex": ">=0"
-  },
-  "peerDependenciesMeta": {
-    "mysql": {
-      "optional": true
-    },
-    "mysql2": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.15.0",
