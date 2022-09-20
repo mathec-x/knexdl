@@ -74,6 +74,7 @@ export class KnexDl {
   static async showDatabases(conn: Knex): Promise<string[]> {
     switch (conn.client.config.client) {
       case 'mysql':
+      case 'mysql2':
         return (await conn.raw(`SHOW DATABASES WHERE \`Database\` NOT IN ('mysql', 'performance_schema', 'information_schema', 'sys')`)
           .then(e => e[0]))
           .map((e: any) => Object.values(e)[0])
@@ -86,6 +87,7 @@ export class KnexDl {
   static async showTables(conn: Knex, database: string): Promise<string[]> {
     switch (conn.client.config.client) {
       case 'mysql':
+      case 'mysql2':
         return (await conn.raw(`SELECT TABLE_NAME FROM information_schema.tables WHERE TABLE_SCHEMA = '${database}'`)
           .then(e => e[0]))
           .map((e: any) => Object.values(e)[0])
@@ -98,6 +100,7 @@ export class KnexDl {
   static async showFieldsFromTable(conn: Knex, database: string, table: string): Promise<{ Field: string, Null: boolean, Type: string, Default: string }[]> {
     switch (conn.client.config.client) {
       case 'mysql':
+      case 'mysql2':
         return await conn.raw(`SHOW FIELDS FROM ${database}.${table}`).then(e => e[0])
 
       default:
